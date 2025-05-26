@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mensagem com Saudade</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      transform: rotate(-45deg);
+      animation: floatHeart 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -15px;
+      left: 0;
+    }
+
+    .heart:after {
+      left: 15px;
+      top: 0;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(100vh) rotate(-45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+
+    .message-container {
+      z-index: 10;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    #movingText {
+      margin-top: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff4d6d;
+      cursor: default;
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message-container">
+    <div class="emoji">🥺</div>
+    <h1>Eu quero ver você de novo.</h1>
+    <p>Estou com saudades da sua boca ❤️❤️❤️</p>
+    <div id="movingText">Quando a gente vai se ver?</div>
+  </div>
+
+  <script>
+    // Criar vários corações que vão subindo
+    const numHearts = 15;
+
+    for (let i = 0; i < numHearts; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      heart.style.animationDelay = (Math.random() * 6) + 's';
+      document.body.appendChild(heart);
+    }
+
+    // Animação do texto "Quando a gente vai se ver?" se mexendo (balançando)
+    const movingText = document.getElementById('movingText');
+    let angle = 0;
+    let direction = 1;
+
+    function animateText() {
+      angle += 0.05 * direction;
+      if (angle > 0.3 || angle < -0.3) {
+        direction *= -1;
+      }
+      movingText.style.transform = `rotate(${angle}rad)`;
+      requestAnimationFrame(animateText);
+    }
+
+    animateText();
+  </script>
+
+</body>
+</html>
